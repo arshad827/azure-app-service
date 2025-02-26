@@ -20,13 +20,6 @@ def create_todo(todo: Todo):
     todos.append(todo)
     return todo
 
-@todo_router.get("/{todo_id}", response_model=Todo)
-def get_todo(todo_id: int):
-    for todo in todos:
-        if todo.id == todo_id:
-            print(todo)
-            return todo
-    raise HTTPException(status_code=404, detail="Todo not found")
 
 @todo_router.get("/", response_model=List[Todo])
 def get_todos():
