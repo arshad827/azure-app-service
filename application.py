@@ -1,8 +1,11 @@
 from fastapi import APIRouter, FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
+import logging
+from fastapi import FastAPI
 
 app = FastAPI(title="To-Do API", description="A simple To-Do API using FastAPI", version="1.0", tags=["todos"])
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Model for To-Do items
 class Todo(BaseModel):
@@ -23,6 +26,7 @@ def create_todo(todo: Todo):
 
 @todo_router.get("/", response_model=List[Todo])
 def get_todos():
+    logging.info("Root endpoint was accessed", extra={"todos": todos})    
     print(todos)
     return todos
 
